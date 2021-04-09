@@ -58,3 +58,38 @@ basicNN + geom_point() + geom_smooth(method=lm)
 ``` 
   
 Using the inferential results, we know the equation for SIMS is SIMS=0.055*ARM-4.095.  
+
+# Model 2: SIMS~GRIP
+
+## Graphical Results
+```{r}
+basicGrip <- ggplot(modeldata,aes(y=SIMS,x=GRIP))
+```
+
+```{r}
+basicGrip + geom_point()
+```
+  
+There seems to be a positive relationship between GRIP and SIMS. Those with higher GRIP test scores, tend to have high SIM scores as well.  
+
+## Numerical results
+```{r}
+cor(SIMS~GRIP,data=modeldata)
+```
+
+There is a correlation of 0.6399 between the grip test score and the SIMS score.  
+
+## Inferential  (Build linear model)
+  
+```{r}
+model.2 <- lm(SIMS~GRIP,data=modeldata)
+summary.lm(model.2)
+```
+
+##### Model 2 Regression Plot
+  
+```{r}
+basicGrip + geom_point() + geom_smooth(method=lm)
+``` 
+  
+Using the inferential results, we know the equation for SIMS is SIMS=0.0455*ARM-4.8097.  
