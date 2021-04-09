@@ -49,6 +49,8 @@ There is a correlation of 0.686 between the arm test score and the SIMS score.
 ```{r}
 model.1 <- lm(SIMS~ARM,data=modeldata)
 summary.lm(model.1)
+newdata<-data.frame(GRIP=94,ARM=88)
+predict.lm(model.1,newdata,interval="prediction")
 ```
 
 ##### Model 1 Regression Plot
@@ -57,13 +59,7 @@ summary.lm(model.1)
 basicNN + geom_point() + geom_smooth(method=lm)
 ``` 
   
-Using the inferential results, we know the equation for SIMS is SIMS=0.055*ARM-4.095.  
-
-## Prediction
-```{r}
-newdata<-data.frame(GRIP=94,ARM=88)
-predict.lm(model.1,newdata,interval="prediction")
-```
+Using the inferential results, we know the equation for SIMS is SIMS=0.055*ARM-4.095. For Model 1, the adjusted R-squared is 0.467 and the residual stanard error is 1.226.
 
 # Model 2: SIMS~GRIP
 
@@ -90,6 +86,8 @@ There is a correlation of 0.6399 between the grip test score and the SIMS score.
 ```{r}
 model.2 <- lm(SIMS~GRIP,data=modeldata)
 summary.lm(model.2)
+newdata<-data.frame(GRIP=94,ARM=88)
+predict.lm(model.2,newdata,interval="prediction")
 ```
 
 ##### Model 2 Regression Plot
@@ -98,13 +96,7 @@ summary.lm(model.2)
 basicGrip + geom_point() + geom_smooth(method=lm)
 ``` 
   
-Using the inferential results, we know the equation for SIMS is SIMS=0.0455*GRIP-4.8097.  
-
-## Prediction
-```{r}
-newdata<-data.frame(GRIP=94,ARM=88)
-predict.lm(model.2,newdata,interval="prediction")
-```
+Using the inferential results, we know the equation for SIMS is SIMS=0.0455*GRIP-4.8097. For Model 2, the adjusted R-squared is 0.4053 and the residual standard error is 1.295.
 
 # Model 3: SIMS~ARM+GRIP
  
@@ -113,13 +105,19 @@ predict.lm(model.2,newdata,interval="prediction")
 ```{r}
 model.3 <- lm(SIMS~ARM+GRIP,data=modeldata)
 summary.lm(model.3)
-```
-
-Using the inferential results, we know the equation for SIMS is SIMS=0.0373 * ARM + 0.0245 * GRIP-5.434.
-
-## Prediction
-```{r}
 newdata<-data.frame(GRIP=94,ARM=88)
 predict.lm(model.3,newdata,interval="prediction")
 ```
+
+Using the inferential results, we know the equation for SIMS is SIMS=0.0373 * ARM + 0.0245 * GRIP-5.434.
+The adjusted R-squared for Model 3 is 0.5358 and the residual standard error is 1.144. 
+
+# ANOVA
+
+Model 1 and Model 3 both had higher adjusted r-squared than Model 2. We will compare Model 1 and Model 3 using an ANOVA to determine if ARM or ARM+GRIP is a better model to predict SIMS.  
+
+```{r}
+anova(model.1,model.3)
+```
+
 
