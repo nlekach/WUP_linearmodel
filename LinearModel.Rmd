@@ -6,28 +6,42 @@ date: "March 24, 2021"
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+require(tidyverse)
 ```
 
 ```{r}
-data <- read.csv(file= "https://onlinestatbook.com/case_studies_rvls/physical_strength/data.txt",sep="",header=TRUE)
+modeldata<- read.csv(file= "https://onlinestatbook.com/case_studies_rvls/physical_strength/data.txt",sep="",header=TRUE)
+require(tidyverse)
+require(tigerstats)
+require(rgl)
+require(knitr)
 ```
 
 
 ## Introduction
 
-In this exercise, we will build three regression models and see which one best predicts a person's score on the work simulations. Model1 will use the arm strength test to predict the work simulation score, Model2 will use the grip test, and Model3 will use the sum of the arm and grip tests. 
-By completing these linear regression models, and subsequent ANOVAs, we will determine which model best predicts the simulation scores of the test particpants.   
+In this exercise, we will build three regression models and see which one best predicts a person's score on the work simulations. Model1 will use the arm strength test to predict the work simulation score, Model2 will use the grip test, and Model3 will use the sum of the arm and grip tests. For each model we will find a 95% prediction interval of SIMS, given a value of 94  for GRIP and 88 for ARM.
+By completing these linear regression models, and subsequent ANOVAs, we will determine which model best predicts the simulation scores of the test participants.   
 
-```{r cars}
-summary(cars)
+
+# Model 1: SIMS~ARM
+
+## Graphical Results
+```{r}
+basicNN <- ggplot(modeldata,aes(y=SIMS,x=ARM))
 ```
 
-## Including Plots
+```{r}
+basicNN + geom_point()
+```
+  
+There seems to be a positive relationship between ARM and SIMS. Those with higher ARM test scores, tend to have high SIM scores as well.  
 
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+# Numerical results
+```{r}
+cor(SIMS~ARM,data=modeldata)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+There is a correlation of 0.686 between the arm test score and the SIMS score.  
+
+  
