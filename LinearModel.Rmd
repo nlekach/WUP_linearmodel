@@ -37,11 +37,24 @@ basicNN + geom_point()
   
 There seems to be a positive relationship between ARM and SIMS. Those with higher ARM test scores, tend to have high SIM scores as well.  
 
-# Numerical results
+## Numerical results
 ```{r}
 cor(SIMS~ARM,data=modeldata)
 ```
 
 There is a correlation of 0.686 between the arm test score and the SIMS score.  
 
+## Inferential  (Build linear model)
   
+```{r}
+model.1 <- lm(SIMS~ARM,data=modeldata)
+summary.lm(model.1)
+```
+
+##### Model 1 Regression Plot
+  
+```{r}
+basicNN + geom_point() + geom_smooth(method=lm)
+``` 
+  
+Using the inferential results, we know the equation for SIMS is SIMS=0.055*ARM-4.095.  
