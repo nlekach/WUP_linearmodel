@@ -92,4 +92,16 @@ summary.lm(model.2)
 basicGrip + geom_point() + geom_smooth(method=lm)
 ``` 
   
-Using the inferential results, we know the equation for SIMS is SIMS=0.0455*ARM-4.8097.  
+Using the inferential results, we know the equation for SIMS is SIMS=0.0455*GRIP-4.8097.  
+  
+# Model 3: SIMS~ARM+GRIP
+ 
+## Inferential  (Build linear model)
+  
+```{r}
+model.3 <- lm(SIMS~ARM+GRIP,data=modeldata)
+summary.lm(model.3)
+```
+
+Using the inferential results, we know the equation for SIMS is SIMS=0.0373 * ARM + 0.0245 * GRIP-5.434.  
+
