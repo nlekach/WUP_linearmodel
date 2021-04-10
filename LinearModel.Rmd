@@ -23,6 +23,8 @@ require(knitr)
 In this exercise, we will build three regression models and see which one best predicts a person's score on the work simulations. Model1 will use the arm strength test to predict the work simulation score, Model2 will use the grip test, and Model3 will use the sum of the arm and grip tests. For each model we will find a 95% prediction interval of SIMS, given a value of 94  for GRIP and 88 for ARM.
 By completing these linear regression models, and subsequent ANOVAs, we will determine which model best predicts the simulation scores of the test participants.   
 
+The null hypothesis for this linear model is that there is no difference between the models. 
+The alternative hypothesis is that there is a difference between at least two of the models.
 
 # Model 1: SIMS~ARM
 
@@ -112,12 +114,14 @@ predict.lm(model.3,newdata,interval="prediction")
 Using the inferential results, we know the equation for SIMS is SIMS=0.0373 * ARM + 0.0245 * GRIP-5.434.
 The adjusted R-squared for Model 3 is 0.5358 and the residual standard error is 1.144. 
 
-# ANOVA
+# ANOVA and Conclusion
 
 Model 1 and Model 3 both had higher adjusted r-squared than Model 2. We will compare Model 1 and Model 3 using an ANOVA to determine if ARM or ARM+GRIP is a better model to predict SIMS.  
 
 ```{r}
 anova(model.1,model.3)
 ```
-
-
+  
+The null hypothesis for this ANOVA is that there is no difference between model 1 and 3. The alternative hypothesis is that there is a difference between model 1 and 3. 
+  
+With a small p-value of, 0.000004994, it is very unlikely that the differences between model 1 and 3 occurred by chance. Therefore, we must reject the null hypothesis.  The best model to predict SIMS is ARM+GRIP. Model 3 has less error than Model 1 - it reduces the amount of error by 29.45.
